@@ -1,50 +1,86 @@
-# Welcome to your Expo app 👋
+.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+📱 React Native Blog App (Firebase + Expo)
+A full-featured mobile blogging application built with React Native (Expo) and Firebase. This app allows users to create accounts, manage their profiles, switch between Dark/Light themes, and publish personal blogs in real-time.
 
-## Get started
+✨ Features
+🔐 Secure Authentication: User Login and Sign Up powered by Firebase Auth.
 
-1. Install dependencies
+📝 Real-time Blogging: Create and save blog posts instantly using Firebase Realtime Database.
 
-   ```bash
-   npm install
-   ```
+👤 User Profiles: Customize your profile with a Name and Bio.
 
-2. Start the app
+🌗 Dark & Light Mode: Built-in theme manager that persists user preference.
 
-   ```bash
-   npx expo start
-   ```
+💾 Persistent Login: Users stay logged in even after closing the app (AsyncStorage).
 
-In the output, you'll find options to open the app in a
+📱 Cross-Platform: Runs smoothly on both Android and iOS.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+🛠️ Tech Stack
+Frontend: React Native, Expo Router
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Backend: Firebase (Authentication, Realtime Database)
 
-## Get a fresh project
+Storage: Async Storage (for session & theme persistence)
 
-When you're ready, run:
+Language: JavaScript
 
-```bash
-npm run reset-project
-```
+📸 Screenshots
+Login Screen	Dark Mode Profile	My Blogs
+(Add your screenshot here)	(Add your screenshot here)	(Add your screenshot here)
+🚀 Getting Started
+To run this project locally on your machine, follow these steps:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+1. Clone the repository
+Bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+cd YOUR_REPO_NAME
+2. Install dependencies
+Bash
+npm install
+3. Setup Firebase
+Create a project at Firebase Console.
 
-## Learn more
+Enable Authentication (Email/Password).
 
-To learn more about developing your project with Expo, look at the following resources:
+Create a Realtime Database (Start in Test Mode).
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Copy your web config keys.
 
-## Join the community
+4. Configure Environment
+Create a file named config/firebaseConfig.js and add your keys:
 
-Join our community of developers creating universal apps.
+JavaScript
+import { initializeApp } from 'firebase/app';
+import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { getDatabase } from 'firebase/database';
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
+const db = getDatabase(app);
+
+export { auth, db };
+5. Run the App
+Bash
+npx expo start -c
+Scan the QR code with the Expo Go app on your phone.
+
+🔮 Future Plans
+[ ] Add Public Feed to view other users' blogs.
+
+[ ] Enable Image Uploads for profiles (Firebase Storage).
+
+[ ] Add "Edit" and "Delete" functionality for blogs.
